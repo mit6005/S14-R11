@@ -47,13 +47,13 @@ public class Grep {
             producer.join();
         }
         
-//        for (Thread consumer : consumers) { // stop all the consumers
-//            queue.add(new Stop());
-//        }
-//        
-//        for (Thread consumer : consumers) { // wait for Consumers to stop
-//            consumer.join();
-//        }
+        for (Thread consumer : consumers) { // stop all the consumers
+            queue.add(new Stop());
+        }
+        
+        for (Thread consumer : consumers) { // wait for Consumers to stop
+            consumer.join();
+        }
         
         for (Line match : matches) {
             System.out.println(match);
@@ -110,7 +110,7 @@ class Consumer implements Runnable {
                 if (line.text().contains(pattern)) {
                     matches.add(line);
                 }
-                Thread.yield(); // DEMO
+                //Thread.yield(); // DEMO
             }
         } catch (InterruptedException ie) {
             ie.printStackTrace();
